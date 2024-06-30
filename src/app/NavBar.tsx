@@ -9,15 +9,13 @@ import { app } from "@/backend";
 import { useEffect, useState } from "react";
 
 function Navbar({ className }: React.HTMLAttributes<HTMLDivElement>) {
-  const [path, setPath] = useState("/login");
+  const [login, setLogin] = useState(true);
 
   useEffect(() => {
     const auth = getAuth(app);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setPath("/user");
-      } else {
-        setPath("/login");
+      if (!user) {
+        setLogin(false);
       }
     });
 
@@ -40,9 +38,11 @@ function Navbar({ className }: React.HTMLAttributes<HTMLDivElement>) {
         </Link>
 
         <div className="flex gap-6">
-          <Link href={path}>
-            <Button variant="special">Login</Button>
-          </Link>
+          {!login && (
+            <Link href="/login">
+              <Button variant="special">Login</Button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

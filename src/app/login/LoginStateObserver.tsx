@@ -17,7 +17,7 @@ function LoginStateObserver({ children }: { children: React.ReactNode }) {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoginState("signedin");
-        router.push("/user");
+        router.push("/editor/saved");
       } else {
         setLoginState("signedout");
       }
